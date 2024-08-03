@@ -102,7 +102,6 @@ function getTimeLeftString(justMin = false) {
   }
 }
 
-let notification = null;
 // 提醒
 function ring() {
   turnOff();
