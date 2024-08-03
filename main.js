@@ -33,8 +33,8 @@ function hide(id) {
 }
 
 function setTimer() {
-  var num = bgpage.settingData.frequencyTime; // 获取选择的倒计时时间
-  bgpage.setAlarm(num * 60000);
+  const num = bgpage.settingData.frequencyTime; // 获取选择的倒计时时间
+  bgpage.setAlarm(num * 60 * 1000);
   document.body.style.minWidth = "420px";
   show("display");
   refreshDisplay();

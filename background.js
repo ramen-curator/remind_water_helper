@@ -13,8 +13,12 @@ var settingData = {
 };
 var startAlarm;
 
-// 获取当前时间,是否在开始时间和结束时间范围内,如果是就开启定时器,不是则需要开启一个定时器去计算开始的时间
-// 如果结束时间到了,但是定时器时间还没到,要清除定时器setTimeout
+/**
+ * 获取当前时间, 判断是否在开始时间和结束时间范围内。
+ * 如果是就开启定时器。
+ * 否则需要开启一个定时器去计算开始的时间。
+ * 如果结束时间到了,但是定时器时间还没到,要清除定时器setTimeout
+ */
 function getValidTime() {
   const hour = new Date().getHours();
   const min = new Date().getMinutes();
@@ -88,12 +92,12 @@ function getTimeLeft() {
 
 // 获取剩余时间字符
 function getTimeLeftString(justMin = false) {
-  var until = getTimeLeft();
-  var tSecs = parseInt(until / 1000);
-  var tMins = parseInt(tSecs / 60);
-  var secs = tSecs % 60;
-  var tHrs = parseInt(tMins / 60);
-  var mins = tMins % 60;
+  const until = getTimeLeft();
+  const tSecs = parseInt(until / 1000);
+  const tMins = parseInt(tSecs / 60);
+  let secs = tSecs % 60;
+  let tHrs = parseInt(tMins / 60);
+  let mins = tMins % 60;
   // 只精确到分钟,用于图标徽章显示
   if (justMin) {
     return tHrs > 0 ? tHrs + "hr" : tMins > 0 ? tMins + "m" : tSecs + "s";
