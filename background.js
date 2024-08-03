@@ -27,11 +27,15 @@ function getValidTime() {
   })();
   const from = settingData.timeFrom.replace(/:/, "");
   const to = settingData.timeTo.replace(/:/, "");
-  if (+curTime < +from) {
+  const isTooEarly = +curTime < +from;
+  const isTooLate = +curTime > +to;
+  if (isTooEarly) {
     alert(`开始提醒时间为${settingData.timeFrom}，时间到了才会开始提醒！`);
-  } else if (+curTime > +to) {
+  } else if (isTooLate) {
     alert(`结束提醒时间为${settingData.timeTo}，已经过了提醒时间!`);
   }
+
+  if (isTooLate) return false;
 
   const gapTime = (() => {
     const year = new Date().getFullYear();
