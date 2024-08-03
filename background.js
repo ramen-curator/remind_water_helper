@@ -13,13 +13,9 @@ const settingData = {
 };
 var startAlarm;
 
-/**
- * 获取当前时间, 判断是否在开始时间和结束时间范围内。
- * 如果是就开启定时器。
- * 否则需要开启一个定时器去计算开始的时间。
- * 如果结束时间到了,但是定时器时间还没到,要清除定时器setTimeout
- */
-function getValidTime() {
+function setAlarm(tMillis) {
+  userChosenDuration = tMillis;
+  clearTimeout(startAlarm);
   const curTime = (() => {
     const hour = new Date().getHours();
     const min = new Date().getMinutes();
@@ -31,37 +27,27 @@ function getValidTime() {
   const isTooLate = +curTime > +to;
   if (isTooEarly) {
     alert(`开始提醒时间为${settingData.timeFrom}，时间到了才会开始提醒！`);
-  } else if (isTooLate) {
+    const gapTime = (() => {
+      const year = new Date().getFullYear();
+      const mon = new Date().getMonth() + 1;
+      const date = new Date().getDate();
+      return (
+        (new Date(
+          year + "-" + mon + "-" + date + " " + settingData.timeFrom,
+        ).getTime() -
+          new Date().getTime()) /
+        1000
+      );
+    })();
+    startAlarm = setTimeout(() => {
+      ringIn(tMillis + guiLagAdjustment);
+    }, parseInt(gapTime) * 1000);
+    return;
+  }
+  if (isTooLate) {
     alert(`结束提醒时间为${settingData.timeTo}，已经过了提醒时间!`);
+    return;
   }
-
-  if (isTooLate) return false;
-
-  const gapTime = (() => {
-    const year = new Date().getFullYear();
-    const mon = new Date().getMonth() + 1;
-    const date = new Date().getDate();
-    return (
-      (new Date(
-        year + "-" + mon + "-" + date + " " + settingData.timeFrom,
-      ).getTime() -
-        new Date().getTime()) /
-      1000
-    );
-  })();
-  // 获取当前时分秒，倒计时到开始时间
-  clearTimeout(startAlarm);
-  if (gapTime > 0) {
-    startAlarm = setTimeout(ringIn, parseInt(gapTime) * 1000);
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function setAlarm(tMillis) {
-  userChosenDuration = tMillis;
-  if (!getValidTime()) return;
   ringIn(tMillis + guiLagAdjustment);
 }
 
