@@ -105,6 +105,7 @@ function getTimeLeftString(justMin = false) {
 let notification = null;
 // 提醒
 function ring() {
+  turnOff();
   const notificationOptions = {
     type: "basic",
     title: `${settingData.title}小助手提醒您：`,
@@ -114,7 +115,6 @@ function ring() {
     requireInteraction: true, 
   };
   chrome.notifications.create(notificationOptions);
-  turnOff();
 }
 chrome.notifications.onClosed.addListener(() => {
   const num = settingData.frequencyTime; // 获取选择的倒计时时间
