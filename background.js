@@ -32,7 +32,7 @@ function setAlarm(tMillis) {
     startAlarmDate = new Date(
       year + "-" + mon + "-" + date + " " + settingData.timeFrom,
     );
-    const gapTime = (_startAlarmDate.getTime() - new Date().getTime()) / 1000;
+    const gapTime = (startAlarmDate.getTime() - new Date().getTime()) / 1000;
     startAlarm = setTimeout(() => {
       ringIn(tMillis + guiLagAdjustment);
     }, parseInt(gapTime) * 1000);
