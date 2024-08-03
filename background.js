@@ -112,7 +112,6 @@ function ring() {
     iconUrl: "img/tea-48.png",
     priority: 2,
     requireInteraction: true, 
-    // buttons: [{title: 'Repeat'}, {title: 'Snooze for 1m'}]
   };
   chrome.notifications.create(notificationOptions);
   turnOff();
