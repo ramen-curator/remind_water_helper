@@ -109,7 +109,7 @@ function ring() {
     type: "basic",
     title: `${settingData.title}小助手提醒您：`,
     message: `${settingData.title}时间到啦！`,
-    iconUrl: "img/tea-48.png",
+    iconUrl: "img/icon_48.png",
     priority: 2,
     requireInteraction: true, 
   };
