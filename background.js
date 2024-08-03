@@ -118,8 +118,8 @@ function ring() {
   turnOff();
 }
 chrome.notifications.onClosed.addListener(() => {
-  var num = settingData.frequencyTime; // 获取选择的倒计时时间
-  setAlarm(num * 60000); // 开始计时
+  const num = settingData.frequencyTime; // 获取选择的倒计时时间
+  setAlarm(num * 60 * 1000); // 开始计时
 });
 
 // 关闭
