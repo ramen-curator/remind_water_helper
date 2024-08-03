@@ -54,12 +54,12 @@ function ringIn(tMillis) {
   clearTimeout(alarmRingTimeout);
   clearInterval(updateBadgeTextInterval);
 
-  var tSecs = parseInt(tMillis / 1000);
-  var tMins = parseInt(tSecs / 60);
-  var secs = tSecs % 60;
-  var tHrs = parseInt(tMins / 60);
-  var mins = tMins % 60;
-  var millis = tMillis % 1000;
+  const tSecs = parseInt(tMillis / 1000);
+  const tMins = parseInt(tSecs / 60);
+  const tHrs = parseInt(tMins / 60);
+  const millis = tMillis % 1000;
+  const secs = tSecs % 60;
+  const mins = tMins % 60;
 
   alarmDate = new Date();
   alarmDate.setHours(alarmDate.getHours() + tHrs);
