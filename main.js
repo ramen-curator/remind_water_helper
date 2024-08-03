@@ -14,6 +14,7 @@ const stopBtn = document.getElementById("stop");
 stopBtn.addEventListener("click", () => {
   reset();
   hide("display");
+  hide("displayForWait");
   hide("stop");
   show("start");
 });
