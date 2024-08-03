@@ -5,7 +5,7 @@ var setDate;
 var alarmDate; // 下一次提醒的时间
 var guiLagAdjustment = 500;
 // 默认的配置值
-var settingData = {
+const settingData = {
   frequencyTime: 30,
   title: "喝水",
   timeFrom: "09:00",
@@ -20,9 +20,11 @@ var startAlarm;
  * 如果结束时间到了,但是定时器时间还没到,要清除定时器setTimeout
  */
 function getValidTime() {
-  const hour = new Date().getHours();
-  const min = new Date().getMinutes();
-  const curTime = hour + "" + (min > 9 ? min : "0" + min);
+  const curTime = (() => {
+    const hour = new Date().getHours();
+    const min = new Date().getMinutes();
+    return hour + "" + (min > 9 ? min : "0" + min);
+  })();
   const from = settingData.timeFrom.replace(/:/, "");
   const to = settingData.timeTo.replace(/:/, "");
   if (+curTime < +from) {
@@ -30,15 +32,19 @@ function getValidTime() {
   } else if (+curTime > +to) {
     alert(`结束提醒时间为${settingData.timeTo}，已经过了提醒时间!`);
   }
-  const year = new Date().getFullYear();
-  const mon = new Date().getMonth() + 1;
-  const date = new Date().getDate();
-  const gapTime =
-    (new Date(
-      year + "-" + mon + "-" + date + " " + settingData.timeFrom,
-    ).getTime() -
-      new Date().getTime()) /
-    1000;
+
+  const gapTime = (() => {
+    const year = new Date().getFullYear();
+    const mon = new Date().getMonth() + 1;
+    const date = new Date().getDate();
+    return (
+      (new Date(
+        year + "-" + mon + "-" + date + " " + settingData.timeFrom,
+      ).getTime() -
+        new Date().getTime()) /
+      1000
+    );
+  })();
   // 获取当前时分秒，倒计时到开始时间
   clearTimeout(startAlarm);
   if (gapTime > 0) {
