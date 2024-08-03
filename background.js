@@ -105,14 +105,14 @@ function getTimeLeftString(justMin = false) {
 let notification = null;
 // 提醒
 function ring() {
-  settingData.frequencyTime;
-  var notificationOptions = {
+  const notificationOptions = {
     type: "basic",
     title: `${settingData.title}小助手提醒您：`,
     message: `${settingData.title}时间到啦！`,
     iconUrl: "img/tea-48.png",
     priority: 2,
-    requireInteraction: true, //, buttons: [{title: 'Repeat'}, {title: 'Snooze for 1m'}]
+    requireInteraction: true, 
+    // buttons: [{title: 'Repeat'}, {title: 'Snooze for 1m'}]
   };
   chrome.notifications.create(notificationOptions);
   turnOff();
