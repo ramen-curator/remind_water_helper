@@ -1,6 +1,5 @@
 var alarmRingTimeout;
 var updateBadgeTextInterval;
-var userChosenDuration;
 var setDate;
 var alarmDate; // 下一次提醒的时间
 var guiLagAdjustment = 500;
@@ -14,7 +13,6 @@ const settingData = {
 var startAlarm;
 
 function setAlarm(tMillis) {
-  userChosenDuration = tMillis;
   clearTimeout(startAlarm);
   const curTime = (() => {
     const hour = new Date().getHours();
@@ -129,7 +127,6 @@ function turnOff() {
   clearTimeout(startAlarm);
   clearTimeout(alarmRingTimeout);
   clearInterval(updateBadgeTextInterval);
-  userChosenDuration = 0;
   alarmDate = null;
   setDate = null;
   chrome.browserAction.setBadgeText({ text: "" });
