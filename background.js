@@ -2,9 +2,10 @@ var alarmRingTimeout;
 var updateBadgeTextInterval;
 var setDate;
 var alarmDate; // 下一次提醒的时间
+var startAlarmDate;
 var guiLagAdjustment = 500;
 // 默认的配置值
-const settingData = {
+var settingData = {
   frequencyTime: 30,
   title: "喝水",
   timeFrom: "09:00",
@@ -25,18 +26,13 @@ function setAlarm(tMillis) {
   const isTooLate = +curTime > +to;
   if (isTooEarly) {
     alert(`开始提醒时间为${settingData.timeFrom}，时间到了才会开始提醒！`);
-    const gapTime = (() => {
-      const year = new Date().getFullYear();
-      const mon = new Date().getMonth() + 1;
-      const date = new Date().getDate();
-      return (
-        (new Date(
-          year + "-" + mon + "-" + date + " " + settingData.timeFrom,
-        ).getTime() -
-          new Date().getTime()) /
-        1000
-      );
-    })();
+    const year = new Date().getFullYear();
+    const mon = new Date().getMonth() + 1;
+    const date = new Date().getDate();
+    startAlarmDate = new Date(
+      year + "-" + mon + "-" + date + " " + settingData.timeFrom,
+    );
+    const gapTime = (_startAlarmDate.getTime() - new Date().getTime()) / 1000;
     startAlarm = setTimeout(() => {
       ringIn(tMillis + guiLagAdjustment);
     }, parseInt(gapTime) * 1000);
@@ -77,14 +73,14 @@ function ringIn(tMillis) {
 }
 
 // 获取剩余时间
-function getTimeLeft() {
+function getTimeLeft(targetDate) {
   var now = new Date();
-  return alarmDate.getTime() - now.getTime();
+  return targetDate.getTime() - now.getTime();
 }
 
 // 获取剩余时间字符
-function getTimeLeftString(justMin = false) {
-  const until = getTimeLeft();
+function getTimeLeftString(justMin = false, targetDate = alarmDate) {
+  const until = getTimeLeft(targetDate);
   const tSecs = parseInt(until / 1000);
   const tMins = parseInt(tSecs / 60);
   let secs = tSecs % 60;
@@ -111,7 +107,7 @@ function ring() {
     message: `${settingData.title}时间到啦！`,
     iconUrl: "img/icon_48.png",
     priority: 2,
-    requireInteraction: true, 
+    requireInteraction: true,
   };
   chrome.notifications.create(notificationOptions);
 }
@@ -127,5 +123,6 @@ function turnOff() {
   clearInterval(updateBadgeTextInterval);
   alarmDate = null;
   setDate = null;
+  startAlarmDate = null;
   chrome.browserAction.setBadgeText({ text: "" });
 }
