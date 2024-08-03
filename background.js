@@ -30,24 +30,22 @@ function getValidTime() {
   } else if (+curTime > +to) {
     alert(`结束提醒时间为${settingData.timeTo}，已经过了提醒时间!`);
   }
-  if (+curTime > +from && +curTime < +to) {
-    // 获取当前时分秒，倒计时到开始时间
-    clearTimeout(startAlarm);
-    const year = new Date().getFullYear();
-    const mon = new Date().getMonth() + 1;
-    const date = new Date().getDate();
-    const gapTime =
-      (new Date(
-        year + "-" + mon + "-" + date + " " + settingData.timeFrom,
-      ).getTime() -
-        new Date().getTime()) /
-      1000;
-    if (gapTime > 0) {
-      startAlarm = setTimeout(ringIn, parseInt(gapTime) * 1000);
-      return false;
-    } else {
-      return true;
-    }
+  const year = new Date().getFullYear();
+  const mon = new Date().getMonth() + 1;
+  const date = new Date().getDate();
+  const gapTime =
+    (new Date(
+      year + "-" + mon + "-" + date + " " + settingData.timeFrom,
+    ).getTime() -
+      new Date().getTime()) /
+    1000;
+  // 获取当前时分秒，倒计时到开始时间
+  clearTimeout(startAlarm);
+  if (gapTime > 0) {
+    startAlarm = setTimeout(ringIn, parseInt(gapTime) * 1000);
+    return false;
+  } else {
+    return true;
   }
 }
 
