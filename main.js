@@ -1,17 +1,17 @@
 // 打开配置页面
-const settingBtn = document.getElementById('setting');
-settingBtn.addEventListener('click', () => {
-  chrome.tabs.create({url: "/setting/setting.html"});
+const settingBtn = document.getElementById("setting");
+settingBtn.addEventListener("click", () => {
+  chrome.tabs.create({ url: "/setting/setting.html" });
 });
 
-const startBtn = document.getElementById('start');
-startBtn.addEventListener('click', () => {
+const startBtn = document.getElementById("start");
+startBtn.addEventListener("click", () => {
   setTimer();
   show("stop");
 });
 
-const stopBtn = document.getElementById('stop');
-stopBtn.addEventListener('click', () => {
+const stopBtn = document.getElementById("stop");
+stopBtn.addEventListener("click", () => {
   reset();
   hide("display");
   hide("stop");
@@ -21,7 +21,7 @@ stopBtn.addEventListener('click', () => {
 var refreshDisplayTimeout;
 var bgpage = chrome.extension.getBackgroundPage();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   refreshDisplay();
 });
 
@@ -35,15 +35,16 @@ function hide(id) {
 function setTimer() {
   var num = bgpage.settingData.frequencyTime; // 获取选择的倒计时时间
   bgpage.setAlarm(num * 60000);
-  document.body.style.minWidth = '420px'
-	show("display");
+  document.body.style.minWidth = "420px";
+  show("display");
   refreshDisplay();
 }
 
 function refreshDisplay() {
-  if(bgpage.alarmDate) {
+  if (bgpage.alarmDate) {
     hide("start");
-    document.getElementById("titleDisplay").textContent = bgpage.settingData.title;
+    document.getElementById("titleDisplay").textContent =
+      bgpage.settingData.title;
     document.getElementById("bar").style.color = "white";
     document.getElementById("bar").textContent = bgpage.getTimeLeftString();
     refreshDisplayTimeout = setTimeout(refreshDisplay, 100);
@@ -59,5 +60,5 @@ function refreshDisplay() {
 function reset() {
   clearTimeout(refreshDisplayTimeout);
   bgpage.turnOff();
-  document.body.style.minWidth = '240px'
+  document.body.style.minWidth = "240px";
 }

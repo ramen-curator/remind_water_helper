@@ -1,34 +1,34 @@
 {
-	"manifest_version": 2,
-	"name": "提醒小助手",
-	"version": "0.1",
-	"description": "提醒小助手",
-	"icons": {
-		"16": "img/tea-16.png",
-		"48": "img/tea-48.png",
-		"128": "img/tea-128.png"
-	},
-	"browser_action": {
-		"default_icon": "img/tea-16.png",
-		"default_popup": "popup.html",
-		"default_title": "点这里打开调试"
-	},
-	"permissions": [
-		"contextMenus",
-		"tabs",
-		"notifications",
-		"webRequest",
-		"webRequestBlocking",
-		"webNavigation",
-		"storage",
-		"http://*/*",
-		"https://*/*"
-	],
-	"options_ui": {
-		"page": "setting/setting.html",
-		"chrome_style": true
-	},
-	"background": {
-		"scripts": ["background.js"]
-	}
+  "manifest_version": 2,
+  "name": "提醒小助手",
+  "version": "0.1",
+  "description": "提醒小助手",
+  "icons": {
+    "16": "img/tea-16.png",
+    "48": "img/tea-48.png",
+    "128": "img/tea-128.png"
+  },
+  "browser_action": {
+    "default_icon": "img/tea-16.png",
+    "default_popup": "popup.html",
+    "default_title": "点这里打开调试"
+  },
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "options_ui": {
+    "page": "setting/setting.html",
+    "chrome_style": true
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
 }
